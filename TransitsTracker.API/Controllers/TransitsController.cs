@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using TransitsTracker.API.Contexts;
 using TransitsTracker.API.Models;
 using TransitsTracker.API.Services;
 

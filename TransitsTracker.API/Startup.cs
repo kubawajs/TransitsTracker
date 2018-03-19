@@ -21,14 +21,16 @@ namespace TransitsTracker.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<TransitsTrackerContext>(opt => opt.UseInMemoryDatabase("TransitsTracker"));
-            services.AddMvc();
+            services.AddDbContext<TransitsTrackerContext>(opt =>
+                opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             // Services
             services.AddScoped<ITransitService, TransitService>();
 
             // Repositories
             services.AddScoped<ITransitRepository, TransitRepository>();
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

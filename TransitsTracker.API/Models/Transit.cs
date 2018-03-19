@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,6 +9,9 @@ namespace TransitsTracker.API.Models
 {
     public class Transit
     {
+        [Key]
+        public int Id { get; set; }
+
         [JsonProperty(PropertyName = "source_address")]
         public string SourceAddress { get; set; }
 
