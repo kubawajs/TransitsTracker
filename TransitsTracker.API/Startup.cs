@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using TransitsTracker.API.Contexts;
+using TransitsTracker.API.Database;
+using TransitsTracker.API.Repositories;
+using TransitsTracker.API.Services;
 
 namespace TransitsTracker.API
 {
@@ -27,6 +23,12 @@ namespace TransitsTracker.API
         {
             services.AddDbContext<TransitsTrackerContext>(opt => opt.UseInMemoryDatabase("TransitsTracker"));
             services.AddMvc();
+
+            // Services
+            services.AddScoped<ITransitService, TransitService>();
+
+            // Repositories
+            services.AddScoped<ITransitRepository, TransitRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

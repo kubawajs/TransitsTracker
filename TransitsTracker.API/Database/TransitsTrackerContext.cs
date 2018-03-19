@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TransitsTracker.API.Models;
 
-namespace TransitsTracker.API.Contexts
+namespace TransitsTracker.API.Database
 {
     public class TransitsTrackerContext : DbContext
     {

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TransitsTracker.API.Contexts;
 using TransitsTracker.API.Models;
+using TransitsTracker.API.Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,24 +14,21 @@ namespace TransitsTracker.API.Controllers
     [Route("api/[controller]")]
     public class TransitsController : Controller
     {
-        private readonly TransitsTrackerContext _context;
+        private readonly ITransitService _transitService;
 
-        public TransitsController(TransitsTrackerContext context)
+        public TransitsController(ITransitService transitService)
         {
-            _context = context;
+            _transitService = transitService;
         }
 
         [HttpPost]
-        public IActionResult Create([FromBody] Transit transit)
+        public async Task<IActionResult> Create([FromBody] Transit transit)
         {
             if(transit == null)
             {
                 return BadRequest();
             }
-
-            _context.Transits.Add(transit);
-            _context.SaveChanges();
-
+            await _transitService.AddAsync(transit);
             return Json(transit);
         }
     }
