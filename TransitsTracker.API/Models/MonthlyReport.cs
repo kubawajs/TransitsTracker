@@ -6,7 +6,7 @@ namespace TransitsTracker.API.Models
 {
     public class MonthlyReport : Report
     {
-        public HashSet<MonthlyReportItem> Items { get; set; }
+        public HashSet<MonthlyReportItem> Items { get; private set; }
 
         private MonthlyReport()
         {

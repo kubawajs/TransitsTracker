@@ -1,10 +1,15 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace TransitsTracker.API.Models
 {
-    public class Report
+    public abstract class Report
     {
-        [Key]
-        public int Id { get; set; }
+        protected int CalculateTotalDistance(List<Transit> transits)
+            => transits.Sum(o => o.Distance);
+
+        protected decimal CalculateTotalPrice(List<Transit> transits)
+            => transits.Sum(o => o.Price);
     }
 }

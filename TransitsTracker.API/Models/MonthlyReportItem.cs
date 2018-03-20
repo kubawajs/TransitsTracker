@@ -9,20 +9,20 @@ namespace TransitsTracker.API.Models
 {
     public class MonthlyReportItem
     {
-        [Key]
-        public int Id { get; set; }
+        //[Key]
+        //public int Id { get; private set; }
 
         [JsonProperty(PropertyName = "date")]
-        public DateTime Date { get; set; }
+        public DateTime Date { get; private set; }
         
         [JsonProperty(PropertyName = "total_distance")]
-        public int TotalDistance { get; set; }
+        public int TotalDistance { get; private set; }
 
         [JsonProperty(PropertyName = "avg_distance")]
-        public decimal AverageDistance { get; set; }
+        public decimal AverageDistance { get; private set; }
 
         [JsonProperty(PropertyName = "avg_price")]
-        public decimal AveragePrice { get; set; }
+        public decimal AveragePrice { get; private set; }
 
         public MonthlyReportItem(IEnumerable<Transit> transits, DateTime date)
         {
@@ -44,9 +44,9 @@ namespace TransitsTracker.API.Models
         }
 
         private decimal CalculateAveragePrice(List<Transit> transits)
-            => GetTotalPrice(transits) / transits.Count;
+            => CalculateTotalPrice(transits) / transits.Count;
 
-        private static decimal GetTotalPrice(List<Transit> transits)
+        private static decimal CalculateTotalPrice(List<Transit> transits)
             => transits.Sum(o => o.Price);
 
         private void SetAverageDistance(List<Transit> transits)

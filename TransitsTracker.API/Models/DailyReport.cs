@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace TransitsTracker.API.Models
 {
@@ -18,38 +19,24 @@ namespace TransitsTracker.API.Models
 
         private DailyReport(IEnumerable<Transit> transits)
         {
-            // TODO: refactoring
-
-            int totalDistance = 0;
-            decimal totalPrice = 0;
-
-            foreach (var transit in transits)
-            {
-                totalDistance += transit.Distance;
-                totalPrice += transit.Price;
-            }
-
-            SetReportParameters(totalDistance, totalPrice);
+            SetTotalDistance(transits.ToList());
+            SetTotalPrice(transits.ToList());
         }
 
-        private void SetReportParameters(int totalDistance, decimal totalPrice)
+        private void SetTotalPrice(List<Transit> transits)
         {
-            SetTotalDistance(totalDistance);
-            SetTotalPrice(totalPrice);
-        }
-
-        private void SetTotalPrice(decimal totalPrice)
-        {
+            var totalPrice = CalculateTotalPrice(transits);
             if (totalPrice < 0)
             {
                 throw new Exception("Total price cannot be lower than 0.");
             }
             if (TotalPrice == totalPrice) return;
             TotalPrice = totalPrice;
-        }
+        }   
 
-        private void SetTotalDistance(int totalDistance)
+        private void SetTotalDistance(List<Transit> transits)
         {
+            var totalDistance = CalculateTotalDistance(transits);
             if(totalDistance < 0)
             {
                 throw new Exception("Total distance cannot be lower than 0.");
