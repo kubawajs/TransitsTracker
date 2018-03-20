@@ -8,7 +8,6 @@ using TransitsTracker.API.Services;
 
 namespace TransitsTracker.API.Controllers
 {
-    [Produces("application/json")]
     [Route("api/Reports")]
     public class ReportsController : Controller
     {

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TransitsTracker.API.Database;
@@ -18,12 +17,18 @@ namespace TransitsTracker.API.Repositories
 
         public async Task<DailyReport> GetDailyReportAsync(DateTime startDate, DateTime endDate)
         {
-            throw new NotImplementedException();
+            var itemsToReport = _context.Transits.Where(e => e.Date >= startDate && e.Date <= endDate);
+            var report = DailyReport.Create(itemsToReport);
+
+            return await Task.FromResult(report);
         }
 
         public async Task<MonthlyReport> GetMonthlyReportAsync(DateTime date)
         {
-            throw new NotImplementedException();
+            var itemsToReport = _context.Transits.Where(e => e.Date.Month == date.Month && e.Date < date);
+            var report = MonthlyReport.Create(itemsToReport, date);
+
+            return await Task.FromResult(report);
         }
     }
 }

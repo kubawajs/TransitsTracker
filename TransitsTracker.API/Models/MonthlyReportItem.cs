@@ -19,9 +19,75 @@ namespace TransitsTracker.API.Models
         public int TotalDistance { get; set; }
 
         [JsonProperty(PropertyName = "avg_distance")]
-        public int AverageDistance { get; set; }
+        public decimal AverageDistance { get; set; }
 
         [JsonProperty(PropertyName = "avg_price")]
         public decimal AveragePrice { get; set; }
+
+        public MonthlyReportItem(IEnumerable<Transit> transits, DateTime date)
+        {
+            SetDate(date);
+            SetTotalDistance(transits.ToList());
+            SetAverageDistance(transits.ToList());
+            SetAveragePrice(transits.ToList());
+        }
+
+        private void SetAveragePrice(List<Transit> transits)
+        {
+            var avgPrice = CalculateAveragePrice(transits);
+            if(avgPrice < 0)
+            {
+                throw new Exception("Average price cannot be lower than 0.");
+            }
+            if (AveragePrice == avgPrice) return;
+            AveragePrice = avgPrice;
+        }
+
+        private decimal CalculateAveragePrice(List<Transit> transits)
+            => GetTotalPrice(transits) / transits.Count;
+
+        private static decimal GetTotalPrice(List<Transit> transits)
+            => transits.Sum(o => o.Price);
+
+        private void SetAverageDistance(List<Transit> transits)
+        {
+            var avgDistance = CalculateAverageDistance(transits);
+            if(avgDistance < 0)
+            {
+                throw new Exception("Average distance cannot be lower than 0.");
+            }
+            if (AverageDistance == avgDistance) return;
+            AverageDistance = avgDistance;
+        }
+
+        private decimal CalculateAverageDistance(List<Transit> transits)
+            => CalculateTotalDistance(transits) / transits.Count;
+
+        private void SetTotalDistance(List<Transit> transits)
+        {
+            var totalDistance = CalculateTotalDistance(transits);
+            if(totalDistance < 0)
+            {
+                throw new Exception("Total distance cannot be lower than 0.");
+            }
+            if (TotalDistance == totalDistance) return;
+            TotalDistance = totalDistance;
+        }
+
+        private int CalculateTotalDistance(List<Transit> transits)
+            => transits.Sum(o => o.Distance);
+
+        private void SetDate(DateTime date)
+        {
+            if(date == null)
+            {
+                throw new Exception("Date cannot be empty.");
+            }
+            if (Date == date) return;
+            Date = date;
+        }
+
+        public static MonthlyReportItem Create(IEnumerable<Transit> transits, DateTime date)
+            => new MonthlyReportItem(transits, date);
     }
 }
