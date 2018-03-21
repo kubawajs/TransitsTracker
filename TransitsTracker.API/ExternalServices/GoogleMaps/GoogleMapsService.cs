@@ -1,13 +1,13 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using TransitsTracker.API.Models;
+using TransitsTracker.API.Services;
 
-namespace TransitsTracker.API.Services
+namespace TransitsTracker.API.ExternalServices.GoogleMaps
 {
     public class GoogleMapsService : IMapService
     {
@@ -19,19 +19,43 @@ namespace TransitsTracker.API.Services
         private const string KEY = "&key=";
         #endregion
 
-
         public async Task GetDistanceAsync(Address source, Address destination)
         {
             var url = CreateUrlWithParameters(source, destination);
+            var request = CreateGetRequest(url);
 
+            var response = await request.GetResponseAsync();
+            var jsonResponse = ResponseToJson(response);
+            var responseObject = JsonToDistanceMatrix(jsonResponse);
+
+            var distText = responseObject.GetDistanceText();
+            var distVal = responseObject.GetDistanceValue();
+
+            // TODO: refactoring + return value - string or int, probably int
+        }
+
+        private static DistanceMatrixResponse JsonToDistanceMatrix(string jsonResponse)
+        {
+            return JsonConvert.DeserializeObject<DistanceMatrixResponse>(jsonResponse);
+        }
+
+        private static string ResponseToJson(WebResponse response)
+        {
+            string jsonResponse;
+            using (var sr = new StreamReader(response.GetResponseStream()))
+            {
+                jsonResponse = sr.ReadToEnd();
+            }
+
+            return jsonResponse;
+        }
+
+        private static HttpWebRequest CreateGetRequest(StringBuilder url)
+        {
             var request = (HttpWebRequest)WebRequest.Create(url.ToString());
             request.Method = "GET";
             request.ContentType = "application/json";
-
-            var response = await request.GetResponseAsync();
-
-            // TODO: serialization
-
+            return request;
         }
 
         private static StringBuilder CreateUrlWithParameters(Address source, Address destination)

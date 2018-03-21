@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TransitsTracker.API.Database;
+using TransitsTracker.API.ExternalServices.GoogleMaps;
 using TransitsTracker.API.Repositories;
 using TransitsTracker.API.Services;
 
