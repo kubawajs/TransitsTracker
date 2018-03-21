@@ -13,10 +13,10 @@ namespace TransitsTracker.API.Models
         public int Id { get; private set; }
 
         [JsonProperty(PropertyName = "source_address")]
-        public string SourceAddress { get; private set; }
+        public Address SourceAddress { get; private set; }
 
         [JsonProperty(PropertyName = "destination_address")]
-        public string DestinationAddress { get; private set; }
+        public Address DestinationAddress { get; private set; }
 
         [JsonProperty(PropertyName = "price")]
         public decimal Price { get; private set; }
