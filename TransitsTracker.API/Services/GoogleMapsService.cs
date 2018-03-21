@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -11,26 +12,26 @@ namespace TransitsTracker.API.Services
     public class GoogleMapsService : IMapService
     {
         #region const
-        private const string _apiKey = "KEY";
-        private const string _baseUrl = @"https://maps.googleapis.com/maps/api/distancematrix/json?";
-        private const string _sourceParam = "origins=";
-        private const string _destinationParam = "&destinations=";
-        private const string _keyParam = "&key=";
+        private const string API_KEY = "key";
+        private const string BASE_URL = @"https://maps.googleapis.com/maps/api/distancematrix/json?";
+        private const string ORIGIN = "origins=";
+        private const string DESTINATION = "&destinations=";
+        private const string KEY = "&key=";
         #endregion
-
-        private HttpWebRequest request;
 
 
         public async Task GetDistanceAsync(Address source, Address destination)
         {
             var url = CreateUrlWithParameters(source, destination);
 
-            request = (HttpWebRequest)WebRequest.Create(url.ToString());
+            var request = (HttpWebRequest)WebRequest.Create(url.ToString());
             request.Method = "GET";
             request.ContentType = "application/json";
 
-            var serializer = new JsonSerializer();
             var response = await request.GetResponseAsync();
+
+            // TODO: serialization
+
         }
 
         private static StringBuilder CreateUrlWithParameters(Address source, Address destination)
@@ -42,7 +43,7 @@ namespace TransitsTracker.API.Services
 
         private static void PrepareRequestUrl(Address source, Address destination, StringBuilder url)
         {
-            url.Append(_baseUrl);
+            url.Append(BASE_URL);
             AddSourceParam(source, url);
             AddDestinationParam(destination, url);
             AddApiKey(url);
@@ -50,19 +51,19 @@ namespace TransitsTracker.API.Services
 
         private static void AddApiKey(StringBuilder url)
         {
-            url.Append(_keyParam);
-            url.Append(_apiKey);
+            url.Append(KEY);
+            url.Append(API_KEY);
         }
 
         private static void AddDestinationParam(Address destination, StringBuilder url)
         {
-            url.Append(_destinationParam);
+            url.Append(DESTINATION);
             url.Append(destination.ToRequestString());
         }
 
         private static void AddSourceParam(Address source, StringBuilder url)
         {
-            url.Append(_sourceParam);
+            url.Append(ORIGIN);
             url.Append(source.ToRequestString());
         }
     }

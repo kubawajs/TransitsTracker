@@ -14,10 +14,12 @@ namespace TransitsTracker.API.Controllers
     public class TransitsController : Controller
     {
         private readonly ITransitService _transitService;
+        private readonly IMapService _mapService;
 
-        public TransitsController(ITransitService transitService)
+        public TransitsController(ITransitService transitService, IMapService mapService)
         {
             _transitService = transitService;
+            _mapService = mapService;
         }
 
         [HttpPost]

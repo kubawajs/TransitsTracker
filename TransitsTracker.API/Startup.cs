@@ -25,9 +25,12 @@ namespace TransitsTracker.API
                 opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             // Services
+            services.AddScoped<IMapService, GoogleMapsService>();
+            services.AddScoped<IReportService, ReportService>();
             services.AddScoped<ITransitService, TransitService>();
 
             // Repositories
+            services.AddScoped<IReportRepository, ReportRepository>();
             services.AddScoped<ITransitRepository, TransitRepository>();
 
             services.AddMvc();
