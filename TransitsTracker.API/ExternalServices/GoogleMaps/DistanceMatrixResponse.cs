@@ -9,13 +9,13 @@ namespace TransitsTracker.API.ExternalServices.GoogleMaps
     public class Distance
     {
         public string Text { get; set; }
-        public int Value { get; set; }
+        public long Value { get; set; }
     }
 
     public class Duration
     {
         public string Text { get; set; }
-        public int Value { get; set; }
+        public long Value { get; set; }
     }
 
     public class Element
@@ -47,6 +47,17 @@ namespace TransitsTracker.API.ExternalServices.GoogleMaps
         }
 
         public int GetDistanceValue()
+        {
+            return ParseDistanceToKm(GetDistanceValueAsLong());
+        }
+
+        public static int ParseDistanceToKm(long distance)
+        {
+            var distInKm = distance / 100;
+            return Convert.ToInt32(distInKm);
+        }
+
+        public long GetDistanceValueAsLong()
         {
             return Rows.First().Elements.First().Distance.Value;
         }

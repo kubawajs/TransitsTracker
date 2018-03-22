@@ -8,6 +8,6 @@ namespace TransitsTracker.API.Services
 {
     public interface IMapService
     {
-        Task GetDistanceAsync(Address source, Address destination);
+        Task<int> GetDistanceAsync(Address source, Address destination);
     }
 }

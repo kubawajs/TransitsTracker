@@ -22,15 +22,25 @@ namespace TransitsTracker.API.Controllers
             _mapService = mapService;
         }
 
+        // TODO: get and get by id
+
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Transit transit)
         {
-            if(transit == null)
+            if (transit == null)
             {
                 return BadRequest();
             }
+            await SetTransitDistance(transit);
             await _transitService.AddAsync(transit);
+
             return Json(transit);
+        }
+
+        private async Task SetTransitDistance(Transit transit)
+        {
+            var distance = await _mapService.GetDistanceAsync(transit.SourceAddress, transit.DestinationAddress);
+            transit.SetDistance(distance);
         }
     }
 }

@@ -19,8 +19,10 @@ namespace TransitsTracker.API.ExternalServices.GoogleMaps
         private const string KEY = "&key=";
         #endregion
 
-        public async Task GetDistanceAsync(Address source, Address destination)
+        public async Task<int> GetDistanceAsync(Address source, Address destination)
         {
+            // TODO: some refactoring
+
             var url = CreateUrlWithParameters(source, destination);
             var request = CreateGetRequest(url);
 
@@ -28,10 +30,9 @@ namespace TransitsTracker.API.ExternalServices.GoogleMaps
             var jsonResponse = ResponseToJson(response);
             var responseObject = JsonToDistanceMatrix(jsonResponse);
 
-            var distText = responseObject.GetDistanceText();
             var distVal = responseObject.GetDistanceValue();
 
-            // TODO: refactoring + return value - string or int, probably int
+            return distVal;
         }
 
         private static DistanceMatrixResponse JsonToDistanceMatrix(string jsonResponse)
