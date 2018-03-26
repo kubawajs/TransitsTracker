@@ -15,7 +15,8 @@ namespace TransitsTracker.API.Repositories
 
         public async Task AddAsync(Transit transit)
         {
-            _context.Transits.Add(transit);
+            await _context.Transits.AddAsync(transit);
+            await _context.SaveChangesAsync();
             await Task.CompletedTask;
         }
     }

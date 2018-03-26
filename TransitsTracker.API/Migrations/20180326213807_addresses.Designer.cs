@@ -11,9 +11,10 @@ using TransitsTracker.API.Database;
 namespace TransitsTracker.API.Migrations
 {
     [DbContext(typeof(TransitsTrackerContext))]
-    partial class TransitsTrackerContextModelSnapshot : ModelSnapshot
+    [Migration("20180326213807_addresses")]
+    partial class addresses
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
