@@ -18,5 +18,11 @@ namespace TransitsTracker.API.Services
 
         public async Task AddAsync(Transit transit)
             => await _repository.AddAsync(transit);
+
+        public async Task<IEnumerable<Transit>> GetAllAsync()
+            => await _repository.GetAllAsync();
+
+        public async Task<Transit> GetByIdAsync(int id)
+            => await _repository.GetByIdAsync(id);
     }
 }

@@ -22,7 +22,27 @@ namespace TransitsTracker.API.Controllers
             _mapService = mapService;
         }
 
-        // TODO: get and get by id
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var drivers = await _transitService.GetAllAsync();
+
+            return Json(drivers);
+        }
+
+        [HttpGet]
+        [Route("{transitId}")]
+        public async Task<IActionResult> Get(int transitId)
+        {
+            var transit = await _transitService.GetByIdAsync(transitId);
+            if(transit == null)
+            {
+                return NotFound();
+            }
+
+            return Json(transit);
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] Transit transit)
@@ -34,7 +54,7 @@ namespace TransitsTracker.API.Controllers
             await SetTransitDistance(transit);
             await _transitService.AddAsync(transit);
 
-            return Json(transit);
+            return NoContent();
         }
 
         private async Task SetTransitDistance(Transit transit)

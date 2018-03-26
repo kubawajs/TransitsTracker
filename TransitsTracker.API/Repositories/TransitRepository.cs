@@ -1,4 +1,7 @@
-﻿using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using TransitsTracker.API.Database;
 using TransitsTracker.API.Models;
 
@@ -19,5 +22,11 @@ namespace TransitsTracker.API.Repositories
             await _context.SaveChangesAsync();
             await Task.CompletedTask;
         }
+
+        public async Task<IEnumerable<Transit>> GetAllAsync()
+            => await Task.FromResult(_context.Transits);
+
+        public async Task<Transit> GetByIdAsync(int id)
+            => await _context.Transits.SingleOrDefaultAsync(t => t.Id == id);
     }
 }
