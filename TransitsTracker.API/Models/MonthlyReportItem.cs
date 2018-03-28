@@ -44,7 +44,13 @@ namespace TransitsTracker.API.Models
         }
 
         private decimal CalculateAveragePrice(List<Transit> transits)
-            => CalculateTotalPrice(transits) / transits.Count;
+        {
+            if(transits.Count <= 0)
+            {
+                return 0;
+            }
+            return CalculateTotalPrice(transits) / transits.Count;
+        }
 
         private static decimal CalculateTotalPrice(List<Transit> transits)
             => transits.Sum(o => o.Price);
@@ -61,7 +67,13 @@ namespace TransitsTracker.API.Models
         }
 
         private decimal CalculateAverageDistance(List<Transit> transits)
-            => CalculateTotalDistance(transits) / transits.Count;
+        {
+            if (transits.Count <= 0)
+            {
+                return 0;
+            }
+            return CalculateTotalDistance(transits) / transits.Count;
+        }
 
         private void SetTotalDistance(List<Transit> transits)
         {

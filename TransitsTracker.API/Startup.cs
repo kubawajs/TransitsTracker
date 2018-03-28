@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 using TransitsTracker.API.Database;
 using TransitsTracker.API.ExternalServices.GoogleMaps;
 using TransitsTracker.API.Repositories;
@@ -34,7 +35,8 @@ namespace TransitsTracker.API
             services.AddScoped<IReportRepository, ReportRepository>();
             services.AddScoped<ITransitRepository, TransitRepository>();
 
-            services.AddMvc();
+            services.AddMvc()
+                    .AddJsonOptions(x => x.SerializerSettings.Formatting = Formatting.Indented);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

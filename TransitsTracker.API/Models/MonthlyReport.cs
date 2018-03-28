@@ -26,7 +26,7 @@ namespace TransitsTracker.API.Models
             {
                 var transitsForDay = GetTransitsForDay(transits, proceededDate);
                 Items.Add(MonthlyReportItem.Create(transitsForDay, proceededDate));
-                proceededDate.AddDays(1);
+                proceededDate = proceededDate.AddDays(1);
             }
         }
 
