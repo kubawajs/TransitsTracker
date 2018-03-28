@@ -25,7 +25,7 @@ namespace TransitsTracker.API.Repositories
 
         public async Task<MonthlyReport> GetMonthlyReportAsync(DateTime date)
         {
-            var itemsToReport = _context.Transits.Where(e => e.Date.Month == date.Month && e.Date < date);
+            var itemsToReport = _context.Transits.Where(e => e.Date.Month == date.Month);
             var report = MonthlyReport.Create(itemsToReport, date);
 
             return await Task.FromResult(report);
