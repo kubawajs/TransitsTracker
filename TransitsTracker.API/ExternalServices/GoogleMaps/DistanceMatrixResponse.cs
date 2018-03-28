@@ -53,7 +53,7 @@ namespace TransitsTracker.API.ExternalServices.GoogleMaps
 
         public static int ParseDistanceToKm(long distance)
         {
-            var distInKm = distance / 100;
+            var distInKm = distance / 1000;
             return Convert.ToInt32(distInKm);
         }
 
