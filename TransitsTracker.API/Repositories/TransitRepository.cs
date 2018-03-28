@@ -24,9 +24,13 @@ namespace TransitsTracker.API.Repositories
         }
 
         public async Task<IEnumerable<Transit>> GetAllAsync()
-            => await Task.FromResult(_context.Transits);
+            => await Task.FromResult(_context.Transits.Include(t => t.SourceAddress)
+                                                      .Include(t => t.DestinationAddress).ToList());
 
         public async Task<Transit> GetByIdAsync(int id)
-            => await _context.Transits.SingleOrDefaultAsync(t => t.Id == id);
+            => await Task.FromResult(await _context.Transits
+                                                   .Include(t => t.SourceAddress)
+                                                   .Include(t => t.DestinationAddress)
+                                                   .FirstOrDefaultAsync(t => t.Id == id));
     }
 }

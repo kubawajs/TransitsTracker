@@ -21,6 +21,10 @@ namespace TransitsTracker.API.Models
         [JsonProperty(PropertyName = "house_number")]
         public string HouseNo { get; private set; }
 
+        public Address()
+        {
+        }
+
         public Address(string city, string street, string houseNo)
         {
             City = city;
