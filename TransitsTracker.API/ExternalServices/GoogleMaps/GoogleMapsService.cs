@@ -21,18 +21,20 @@ namespace TransitsTracker.API.ExternalServices.GoogleMaps
 
         public async Task<int> GetDistanceAsync(Address source, Address destination)
         {
-            // TODO: some refactoring
-
             var url = CreateUrlWithParameters(source, destination);
             var request = CreateGetRequest(url);
 
-            var response = await request.GetResponseAsync();
-            var jsonResponse = ResponseToJson(response);
-            var responseObject = JsonToDistanceMatrix(jsonResponse);
-
+            var responseObject = await GetResponseAsDistanceMatrix(request);
             var distVal = responseObject.GetDistanceValue();
 
             return distVal;
+        }
+
+        private static async Task<DistanceMatrixResponse> GetResponseAsDistanceMatrix(HttpWebRequest request)
+        {
+            var response = await request.GetResponseAsync();
+            var jsonResponse = ResponseToJson(response);
+            return JsonToDistanceMatrix(jsonResponse);
         }
 
         private static DistanceMatrixResponse JsonToDistanceMatrix(string jsonResponse)
@@ -69,9 +71,14 @@ namespace TransitsTracker.API.ExternalServices.GoogleMaps
         private static void PrepareRequestUrl(Address source, Address destination, StringBuilder url)
         {
             url.Append(BASE_URL);
+            AddAddressParams(source, destination, url);
+            AddApiKey(url);
+        }
+
+        private static void AddAddressParams(Address source, Address destination, StringBuilder url)
+        {
             AddSourceParam(source, url);
             AddDestinationParam(destination, url);
-            AddApiKey(url);
         }
 
         private static void AddApiKey(StringBuilder url)
