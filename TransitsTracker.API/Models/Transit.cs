@@ -10,6 +10,7 @@ namespace TransitsTracker.API.Models
     public class Transit
     {
         [Key]
+        [JsonIgnore]
         public int Id { get; private set; }
 
         [JsonProperty(PropertyName = "source_address")]
