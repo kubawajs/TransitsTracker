@@ -23,7 +23,7 @@ namespace TransitsTracker.Core.Domain
         public decimal Price { get; set; }
 
         [JsonProperty(PropertyName = "date")]
-        public DateTime Date { get; private set; }
+        public DateTime Date { get; set; }
 
         public int Distance { get; private set; }
 

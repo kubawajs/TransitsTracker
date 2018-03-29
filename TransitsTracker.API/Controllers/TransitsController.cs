@@ -26,9 +26,8 @@ namespace TransitsTracker.API.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var drivers = await _transitService.GetAllAsync();
-
-            return Json(drivers);
+            var transits = await _transitService.GetAllAsync();
+            return Json(transits);
         }
 
         [HttpGet]
@@ -59,6 +58,7 @@ namespace TransitsTracker.API.Controllers
 
         private async Task SetTransitDistance(Transit transit)
         {
+            // TODO: test and try catch
             var distance = await _mapService.GetDistanceAsync(transit.SourceAddress, transit.DestinationAddress);
             transit.SetDistance(distance);
         }

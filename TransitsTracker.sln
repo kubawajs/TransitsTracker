@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransitsTracker.API", "Tran
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransitsTracker.Core", "TransitsTracker.Core\TransitsTracker.Core.csproj", "{CBE4A4BD-E933-4F46-B078-9D71BDD1D4D6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TransitsTracker.Tests.Unit", "TransitsTracker.Tests.Unit\TransitsTracker.Tests.Unit.csproj", "{5D7DF97A-2E97-4195-87DE-7DB724C86694}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{CBE4A4BD-E933-4F46-B078-9D71BDD1D4D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBE4A4BD-E933-4F46-B078-9D71BDD1D4D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBE4A4BD-E933-4F46-B078-9D71BDD1D4D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D7DF97A-2E97-4195-87DE-7DB724C86694}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D7DF97A-2E97-4195-87DE-7DB724C86694}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D7DF97A-2E97-4195-87DE-7DB724C86694}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D7DF97A-2E97-4195-87DE-7DB724C86694}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
