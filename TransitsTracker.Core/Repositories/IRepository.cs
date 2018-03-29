@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TransitsTracker.API.Repositories
+namespace TransitsTracker.Core.Repositories
 {
     public interface IRepository
     {

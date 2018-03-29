@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TransitsTracker.API.Models;
-using TransitsTracker.API.Repositories;
+using TransitsTracker.Core.Domain;
+using TransitsTracker.Core.Repositories;
 
 namespace TransitsTracker.API.Services
 {

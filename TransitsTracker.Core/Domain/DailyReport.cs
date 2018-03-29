@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace TransitsTracker.API.Models
+namespace TransitsTracker.Core.Domain
 {
     public class DailyReport : Report
     {

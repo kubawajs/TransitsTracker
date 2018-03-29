@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TransitsTracker.API.Models;
+using TransitsTracker.Core.Domain;
 
-namespace TransitsTracker.API.Repositories
+namespace TransitsTracker.Core.Repositories
 {
     public interface IReportRepository : IRepository
     {
