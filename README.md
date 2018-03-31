@@ -36,39 +36,39 @@ Created and built with **VS Enterprise 2017**.
 
 |   |   |
 |---|---|
-|**Title**|Returns all transits|
+|**Title**|Get transits|
+|**Description**|Returns all transits.|
 |**URL**|/transits|
 |**Method**|GET|
 |**Data params**|None|
 |**Params**|None|
-|**Success**|**Example:** todo **Code:** todo **Content:** { todo }
+|**Success**|**Example:** todo<br>**Code:** todo<br>**Content:** { todo }
 ||**Example:** Empty list **Code:** 204 **Content:**
 |**Error**|todo|
-|**Notes**||
 
 
 |   |   |
 |---|---|
-|**Title**|Returns transit with requested id|
+|**Title**|Get transit|
+|**Description**|Returns transit with requested id.|
 |**URL**|/transits/:id|
 |**Method**|GET|
 |**Data params**|None|
 |**Params**|**Required:** id [integer] |
-|**Success**|**Example:** todo **Code:** todo **Content:** { todo }
+|**Success**|**Example:** todo<br>**Code:** todo<br>**Content:** { todo }
 |**Error**|todo|
-|**Notes**||
 
 
 |   |   |
 |---|---|
-|**Title**|Creates new transit|
+|**Title**|Create new transit|
+|**Description**|Creates new transit. Distance between given addresses is calculating automatically.|
 |**URL**|/transits|
 |**Method**|POST|
 |**Data params**| todo |
-|**Params**|**Required:** todo **Optional:** todo |
-|**Success**|**Example:** todo **Code:** todo **Content:** { todo }
+|**Params**|**Required:** todo<br>**Optional:** todo |
+|**Success**|**Example:** todo<br>**Code:** todo<br>**Content:** { todo }
 |**Error**|todo|
-|**Notes**||
 
 
 ### Reports
@@ -77,27 +77,28 @@ Created and built with **VS Enterprise 2017**.
 
 |   |   |
 |---|---|
-|**Title**|Returns number of kilometers traveled and the money earned between the two dates.|
+|**Title**|Get daily report|
+|**Description**|Returns number of kilometers traveled and the money earned between the two dates.|
 |**URL**|/daily?start_date=:start_date&end_date=:end_date|
 |**Method**|GET|
 |**Data params**| todo |
 |**Params**|**Required:** start_date [date], end_date [date] |
-|**Success**|**Example:** todo **Code:** todo **Content:** { todo } |
+|**Success**|**Example:** todo<br>**Code:** todo<br>**Content:** { todo } |
 |**Error**|todo|
-|**Notes**||
+
 
 #### Monthly
 
 |   |   |
 |---|---|
-|**Title**|Returns the number of kilometers traveled, the average distance and the average payment for each day in current month|
+|**Title**|Get monthly report|
+|**Description**|Returns the number of kilometers traveled, the average distance and the average payment for each day in current month|
 |**URL**|/monthly|
 |**Method**|GET|
-|**Data params**|todo|
+|**Data params**|None|
 |**Params**|None|
-|**Success**|**Example:** todo **Code:** todo **Content:** { todo }
+|**Success**|**Example:** todo<br>**Code:** todo<br>**Content:** { todo }
 |**Error**|todo|
-|**Notes**||
 
 
 ## External Services
@@ -107,14 +108,14 @@ Created and built with **VS Enterprise 2017**.
 
 ## Testing
 
-xUnit - In progress.
+* xUnit - In progress.
 
 
 ## Versioning
 
-Git
+* Git
 
 
 ## Authors
 
-Jakub Wajs
+[Jakub Wajs](https://github.com/kubawajs)
