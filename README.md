@@ -90,8 +90,7 @@ Created and built with **VS Enterprise 2017**.
 
 |   |   |
 |---|---|
-|**Title**|
-Returns the number of kilometers traveled, the average distance and the average payment for each day in current month|
+|**Title**|Returns the number of kilometers traveled, the average distance and the average payment for each day in current month|
 |**URL**|/monthly|
 |**Method**|GET|
 |**Data params**|todo|
