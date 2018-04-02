@@ -38,12 +38,29 @@ Created and built with **VS Enterprise 2017**.
 |---|---|
 |**Title**|Get transits|
 |**Description**|Returns all transits.|
-|**URL**|/transits|
+|**URL**|/api/transits|
 |**Method**|GET|
 |**Data params**|None|
 |**Params**|None|
-|**Success**|**Example:** todo<br>**Code:** todo<br>**Content:** { todo }
-||**Example:** Empty list **Code:** 204 **Content:**
+|**Success**|**Example:** /api/transits<br>**Code:** 200<br>**Content:** |
+|| `[` |
+|| `    {` |
+|| `        "source_address": {` |
+|| `            "city": "Warszawa",` |
+|| `            "street": "Poznańska",` |
+|| `            "house_number": "3"` |
+|| `        },` |
+|| `        "destination_address": {` |
+|| `            "city": "Poznan",` |
+|| `            "street": "Bukowska",` |
+|| `            "house_number": "15"` |
+|| `        },` |
+|| `        "price": 320,` |
+|| `        "date": "2018-03-15T00:00:00",` | 
+|| `        "distance": 310` |
+|| `    },` |
+|| `    ...` |
+|| `]` |
 |**Error**|todo|
 
 
@@ -51,11 +68,26 @@ Created and built with **VS Enterprise 2017**.
 |---|---|
 |**Title**|Get transit|
 |**Description**|Returns transit with requested id.|
-|**URL**|/transits/:id|
+|**URL**|/api/transits/:id|
 |**Method**|GET|
 |**Data params**|None|
 |**Params**|**Required:** id [integer] |
-|**Success**|**Example:** todo<br>**Code:** todo<br>**Content:** { todo }
+|**Success**|**Example:** /api/transits/1/<br>**Code:** 200<br>**Content:** |
+|| `    {` |
+|| `        "source_address": {` |
+|| `            "city": "Warszawa",` |
+|| `            "street": "Poznańska",` |
+|| `            "house_number": "3"` |
+|| `        },` |
+|| `        "destination_address": {` |
+|| `            "city": "Poznan",` |
+|| `            "street": "Bukowska",` |
+|| `            "house_number": "15"` |
+|| `        },` |
+|| `        "price": 320,` |
+|| `        "date": "2018-03-15T00:00:00",` | 
+|| `        "distance": 310` |
+|| `    }` |
 |**Error**|todo|
 
 
@@ -63,11 +95,25 @@ Created and built with **VS Enterprise 2017**.
 |---|---|
 |**Title**|Create new transit|
 |**Description**|Creates new transit. Distance between given addresses is calculating automatically.|
-|**URL**|/transits|
+|**URL**|/api/transits|
 |**Method**|POST|
-|**Data params**| todo |
+|**Data params**| |
+|| `    {` |
+|| `        "source_address": {` |
+|| `            "city": "Warszawa",` |
+|| `            "street": "Poznańska",` |
+|| `            "house_number": "3"` |
+|| `        },` |
+|| `        "destination_address": {` |
+|| `            "city": "Poznan",` |
+|| `            "street": "Bukowska",` |
+|| `            "house_number": "15"` |
+|| `        },` |
+|| `        "price": 320,` |
+|| `        "date": "2018-03-15",` | 
+|| `    }` |
 |**Params**|**Required:** todo<br>**Optional:** todo |
-|**Success**|**Example:** todo<br>**Code:** todo<br>**Content:** { todo }
+|**Success**|**Example:** <br>**Code:** 200<br>**Content:** None
 |**Error**|todo|
 
 
@@ -79,11 +125,15 @@ Created and built with **VS Enterprise 2017**.
 |---|---|
 |**Title**|Get daily report|
 |**Description**|Returns number of kilometers traveled and the money earned between the two dates.|
-|**URL**|/daily?start_date=:start_date&end_date=:end_date|
+|**URL**|/api/reports/daily?start_date=:start_date&end_date=:end_date|
 |**Method**|GET|
 |**Data params**| todo |
 |**Params**|**Required:** start_date [date], end_date [date] |
-|**Success**|**Example:** todo<br>**Code:** todo<br>**Content:** { todo } |
+|**Success**|**Example:** api/reports/daily?start_date=2018-03-10&end_date=2018-03-15<br>**Code:** 200<br>**Content:** |
+|| `{ ` |
+|| `  "total_distance": 310,` |
+|| `  "total_price": 320.00` |
+|| `}` |
 |**Error**|todo|
 
 
@@ -93,11 +143,21 @@ Created and built with **VS Enterprise 2017**.
 |---|---|
 |**Title**|Get monthly report|
 |**Description**|Returns the number of kilometers traveled, the average distance and the average payment for each day in current month|
-|**URL**|/monthly|
+|**URL**|/api/reports/monthly|
 |**Method**|GET|
 |**Data params**|None|
 |**Params**|None|
-|**Success**|**Example:** todo<br>**Code:** todo<br>**Content:** { todo }
+|**Success**|**Example:** /api/reports/monthly<br>**Code:** 200<br>**Content:**
+|| ` {` |
+|| ` "items": [` |
+|| `   {` |
+|| `     "date": "2018-04-01T00:00:00",` |
+|| `     "total_distance": 0,` |
+|| `     "avg_distance": 0.0,` |
+|| `     "avg_price": 0.0` |
+|| `   }` |
+|| `  ]` |
+|| ` }` |
 |**Error**|todo|
 
 
