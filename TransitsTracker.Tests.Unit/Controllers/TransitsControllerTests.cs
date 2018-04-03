@@ -16,8 +16,10 @@ namespace TransitsTracker.Tests.Unit.Controllers
 {
     public class TransitsControllerTests
     {
+        private readonly int _numberOfTestSetElements = 10;
+
         [Fact]
-        public async void get_should_return_all_transits_if_exists()
+        public async void get_should_return_transits_list_with_status_code_200_if_transits_exists()
         {
             // Arrange
             var transitServiceMock = new Mock<ITransitService>();
@@ -27,21 +29,36 @@ namespace TransitsTracker.Tests.Unit.Controllers
             transitServiceMock.Setup(service => service.GetAllAsync()).Returns(Task.FromResult(GetTestTransits()));
 
             // Act
-            var response = await controllerMock.Get();
+            var response = await controllerMock.Get() as JsonResult;
+            var transit = response.Value as IEnumerable<Transit>;
 
             // Assert
-            var jsonResult = Assert.IsType<JsonResult>(response);
-            // TODO: compare number of elements
-            //Assert.Equal(10, JValue.);
+            Assert.Equal(_numberOfTestSetElements, transit.Count());
+            Assert.Equal(200, response.StatusCode);
         }
 
-        //[Fact]
-        //public void get_with_id_should_return_exact_transit_if_exists()
-        //{
-        //    // Arrange
-        //    // Act
-        //    // Assert
-        //}
+        [Fact]
+        public async void get_with_id_should_return_exact_transit_with_status_code_200_if_exact_transit_exists()
+        {
+            // Arrange
+            var id = 0;
+            var transitServiceMock = new Mock<ITransitService>();
+            var mapServiceMock = new Mock<IMapService>();
+            var controllerMock = new TransitsController(transitServiceMock.Object, mapServiceMock.Object);
+
+            transitServiceMock.Setup(service => service.GetByIdAsync(id)).Returns(Task.FromResult(GetTestTransit(id)));
+
+            // Act
+            var response = await controllerMock.Get(id) as JsonResult;
+            var transit = response.Value as Transit;
+
+            // Assert
+            Assert.Equal(id, transit.Id);
+            Assert.Equal(200, response.StatusCode);
+        }
+
+        private Transit GetTestTransit(int i)
+            => CreateTestTransit(i);
 
         //[Fact]
         //public void get_with_id_should_return_no_content_if_transit_not_exists()
@@ -60,15 +77,12 @@ namespace TransitsTracker.Tests.Unit.Controllers
         //}
 
         private IEnumerable<Transit> GetTestTransits()
-        {
-            List<Transit> transits = CreateTestTransitsSet();
-            return transits;
-        }
+            => CreateTestTransitsSet();
 
-        private static List<Transit> CreateTestTransitsSet()
+        private List<Transit> CreateTestTransitsSet()
         {
             var transits = new List<Transit>();
-            for (int i = 1; i <= 10; i++)
+            for (int i = 1; i <= _numberOfTestSetElements; i++)
             {
                 transits.Add(CreateTestTransit(i));
             }
@@ -76,14 +90,12 @@ namespace TransitsTracker.Tests.Unit.Controllers
         }
 
         private static Transit CreateTestTransit(int i)
-        {
-            return new Transit
-            {
-                Date = DateTime.UtcNow,
-                Price = i * 25,
-                DestinationAddress = new Address(String.Concat("Test", i.ToString()), String.Concat("Test", i + 10), i.ToString()),
-                SourceAddress = new Address(String.Concat("Test", i + 20), String.Concat("Test", i + 30), (i + 1).ToString()),
-            };
-        }
+            =>  new Transit
+                {
+                    Date = DateTime.UtcNow.AddDays(-i),
+                    Price = i * 25,
+                    DestinationAddress = new Address(String.Concat("Test", i.ToString()), String.Concat("Test", i + 10), i.ToString()),
+                    SourceAddress = new Address(String.Concat("Test", i + 20), String.Concat("Test", i + 30), (i + 1).ToString()),
+                };
     }
 }

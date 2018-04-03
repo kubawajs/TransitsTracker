@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using TransitsTracker.API.Services;
 using TransitsTracker.Core.Domain;
 
@@ -27,7 +29,11 @@ namespace TransitsTracker.API.Controllers
         public async Task<IActionResult> Get()
         {
             var transits = await _transitService.GetAllAsync();
-            return Json(transits);
+            if(transits == null)
+            {
+                return NotFound();
+            }
+            return new JsonResult(transits) { StatusCode = 200 };
         }
 
         [HttpGet]
@@ -39,8 +45,7 @@ namespace TransitsTracker.API.Controllers
             {
                 return NotFound();
             }
-
-            return Json(transit);
+            return new JsonResult(transit) { StatusCode = 200 };
         }
 
         [HttpPost]
