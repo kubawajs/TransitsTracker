@@ -34,9 +34,8 @@ namespace TransitsTracker.API.Controllers
         [Route("monthly")]
         public async Task<IActionResult> Monthly()
         {
-            var dateNow = DateTime.UtcNow.Date;
-            var report = await _reportService.GetMonthlyReportAsync(dateNow);
-            if (report == null)
+            var report = await _reportService.GetMonthlyReportAsync(DateTime.UtcNow.Date);
+            if(report == null)
             {
                 return NotFound();
             }

@@ -28,7 +28,7 @@ namespace TransitsTracker.Tests.Unit.Controllers
             var controllerMock = new ReportsController(reportServiceMock.Object);
 
             reportServiceMock.Setup(service => service.GetDailyReportAsync(startDate, endDate))
-                             .Returns(Task.FromResult(expected));
+                             .ReturnsAsync(expected);
 
             // Act
             var response = await controllerMock.Daily(startDate, endDate);
@@ -51,7 +51,7 @@ namespace TransitsTracker.Tests.Unit.Controllers
             var controllerMock = new ReportsController(reportServiceMock.Object);
 
             reportServiceMock.Setup(service => service.GetDailyReportAsync(startDate, endDate))
-                             .Returns(Task.FromResult((DailyReport)null));
+                             .ReturnsAsync(() => null);
 
             // Act
             var response = await controllerMock.Daily(startDate, endDate);
@@ -73,7 +73,7 @@ namespace TransitsTracker.Tests.Unit.Controllers
             var controllerMock = new ReportsController(reportServiceMock.Object);
 
             reportServiceMock.Setup(service => service.GetMonthlyReportAsync(date))
-                             .Returns(Task.FromResult(expected));
+                             .ReturnsAsync(expected);
 
             // Act
             var response = await controllerMock.Monthly();
@@ -93,7 +93,7 @@ namespace TransitsTracker.Tests.Unit.Controllers
             var controllerMock = new ReportsController(reportServiceMock.Object);
 
             reportServiceMock.Setup(service => service.GetMonthlyReportAsync(DateTime.Now))
-                             .Returns(Task.FromResult((MonthlyReport)null));
+                             .ReturnsAsync(() => null);
 
             // Act
             var response = await controllerMock.Monthly();

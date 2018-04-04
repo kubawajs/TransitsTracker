@@ -12,7 +12,7 @@ namespace TransitsTracker.API.ExternalServices.GoogleMaps
     public class GoogleMapsService : IMapService
     {
         #region const
-        private const string API_KEY = "AIzaSyB5w7Ww976mCq5rngEhRnG4QoRKl1RJMsM";
+        private const string API_KEY = "key";
         private const string BASE_URL = @"https://maps.googleapis.com/maps/api/distancematrix/json?";
         private const string ORIGIN = "origins=";
         private const string DESTINATION = "&destinations=";

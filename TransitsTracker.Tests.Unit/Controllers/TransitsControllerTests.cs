@@ -24,7 +24,8 @@ namespace TransitsTracker.Tests.Unit.Controllers
             var mapServiceMock = new Mock<IMapService>();
             var controllerMock = new TransitsController(transitServiceMock.Object, mapServiceMock.Object);
 
-            transitServiceMock.Setup(service => service.GetAllAsync()).Returns(Task.FromResult(expected));
+            transitServiceMock.Setup(service => service.GetAllAsync())
+                              .ReturnsAsync(expected);
 
             // Act
             var response = await controllerMock.Get();
@@ -47,7 +48,8 @@ namespace TransitsTracker.Tests.Unit.Controllers
             var mapServiceMock = new Mock<IMapService>();
             var controllerMock = new TransitsController(transitServiceMock.Object, mapServiceMock.Object);
 
-            transitServiceMock.Setup(service => service.GetByIdAsync(id)).Returns(Task.FromResult(expected));
+            transitServiceMock.Setup(service => service.GetByIdAsync(id))
+                              .ReturnsAsync(expected);
 
             // Act
             var response = await controllerMock.Get(id);
@@ -69,7 +71,8 @@ namespace TransitsTracker.Tests.Unit.Controllers
             var mapServiceMock = new Mock<IMapService>();
             var controllerMock = new TransitsController(transitServiceMock.Object, mapServiceMock.Object);
 
-            transitServiceMock.Setup(service => service.GetByIdAsync(id)).Returns(Task.FromResult((Transit)null));
+            transitServiceMock.Setup(service => service.GetByIdAsync(id))
+                              .ReturnsAsync(() => null);
 
             // Act
             var response = await controllerMock.Get(id);
