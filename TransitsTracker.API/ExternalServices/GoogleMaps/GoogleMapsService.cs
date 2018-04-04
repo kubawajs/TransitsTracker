@@ -4,15 +4,15 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using TransitsTracker.API.Models;
 using TransitsTracker.API.Services;
+using TransitsTracker.Core.Domain;
 
 namespace TransitsTracker.API.ExternalServices.GoogleMaps
 {
     public class GoogleMapsService : IMapService
     {
         #region const
-        private const string API_KEY = "key";
+        private const string API_KEY = "AIzaSyB5w7Ww976mCq5rngEhRnG4QoRKl1RJMsM";
         private const string BASE_URL = @"https://maps.googleapis.com/maps/api/distancematrix/json?";
         private const string ORIGIN = "origins=";
         private const string DESTINATION = "&destinations=";

@@ -7,18 +7,17 @@ using System.Threading.Tasks;
 using TransitsTracker.API.Controllers;
 using TransitsTracker.API.Services;
 using TransitsTracker.Core.Domain;
+using TransitsTracker.Tests.Unit.Helpers;
 using Xunit;
 
 namespace TransitsTracker.Tests.Unit.Controllers
 {
     public class TransitsControllerTests
     {
-        #region unit tests
-
         [Fact]
-        public async void get_should_return_transits_list_with_status_code_200_if_transits_exists()
+        public async void get_should_return_json_transits_list_if_transits_exists()
         {
-            var expected = GetTestTransits();
+            var expected = TransitsTestHelper.GetTestTransits();
 
             // Arrange
             var transitServiceMock = new Mock<ITransitService>();
@@ -33,15 +32,15 @@ namespace TransitsTracker.Tests.Unit.Controllers
             var transits = result.Value as IEnumerable<Transit>;
 
             // Assert
+            Assert.IsType<JsonResult>(response);
             Assert.True(expected.SequenceEqual(transits));
-            Assert.Equal(200, result.StatusCode);
         }
 
         [Fact]
-        public async void get_with_id_should_return_exact_transit_with_status_code_200_if_exact_transit_exists()
+        public async void get_with_id_should_return_json_with_exact_transit_if_exact_transit_exists()
         {
             var id = 0;
-            var expected = GetTestTransit(id);
+            var expected = TransitsTestHelper.GetTestTransit(id);
 
             // Arrange
             var transitServiceMock = new Mock<ITransitService>();
@@ -58,11 +57,10 @@ namespace TransitsTracker.Tests.Unit.Controllers
             // Assert
             Assert.IsType<JsonResult>(response);
             Assert.Equal(expected, actual);
-            Assert.Equal(200, result.StatusCode);
         }
 
         [Fact]
-        public async void get_with_id_should_return_no_content_with_204_if_transit_not_exists()
+        public async void get_with_id_should_return_no_content_if_transit_not_exists()
         {
             var id = 99;
 
@@ -83,9 +81,9 @@ namespace TransitsTracker.Tests.Unit.Controllers
         }
 
         [Fact]
-        public async void create_should_return_created_at_route_result_with_201()
+        public async void create_should_return_created_at_route_result()
         {
-            var transit = CreateTestTransit(0);
+            var transit = TransitsTestHelper.GetTestTransit(0);
 
             // Arrange
             var transitServiceMock = new Mock<ITransitService>();
@@ -100,36 +98,5 @@ namespace TransitsTracker.Tests.Unit.Controllers
             Assert.IsType<CreatedAtRouteResult>(response);
             Assert.Equal(201, result.StatusCode);
         }
-
-        #endregion
-
-        #region setup
-
-        private IEnumerable<Transit> GetTestTransits()
-            => CreateTestTransitsSet();
-
-        private Transit GetTestTransit(int i)
-            => CreateTestTransit(i);
-
-        private List<Transit> CreateTestTransitsSet()
-        {
-            var transits = new List<Transit>();
-            for (int i = 1; i <= 10; i++)
-            {
-                transits.Add(CreateTestTransit(i));
-            }
-            return transits;
-        }
-
-        private static Transit CreateTestTransit(int i)
-            =>  new Transit
-                {
-                    Date = DateTime.UtcNow.AddDays(-i),
-                    Price = i * 25,
-                    DestinationAddress = new Address(String.Concat("Test", i.ToString()), String.Concat("Test", i + 10), i.ToString()),
-                    SourceAddress = new Address(String.Concat("Test", i + 20), String.Concat("Test", i + 30), (i + 1).ToString()),
-                };
-
-        #endregion
     }
 }

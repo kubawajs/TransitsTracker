@@ -33,7 +33,7 @@ namespace TransitsTracker.API.Controllers
             {
                 return NoContent();
             }
-            return new JsonResult(transits) { StatusCode = 200 };
+            return Json(transits);
         }
 
         [HttpGet]
@@ -45,7 +45,7 @@ namespace TransitsTracker.API.Controllers
             {
                 return NoContent();
             }
-            return new JsonResult(transit) { StatusCode = 200 };
+            return Json(transit);
         }
 
         [HttpPost]
