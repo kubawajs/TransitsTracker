@@ -31,7 +31,7 @@ namespace TransitsTracker.API.Controllers
             var transits = await _transitService.GetAllAsync();
             if(transits == null)
             {
-                return NotFound();
+                return NoContent();
             }
             return new JsonResult(transits) { StatusCode = 200 };
         }
@@ -43,7 +43,7 @@ namespace TransitsTracker.API.Controllers
             var transit = await _transitService.GetByIdAsync(transitId);
             if(transit == null)
             {
-                return NotFound();
+                return NoContent();
             }
             return new JsonResult(transit) { StatusCode = 200 };
         }
@@ -58,12 +58,12 @@ namespace TransitsTracker.API.Controllers
             await SetTransitDistance(transit);
             await _transitService.AddAsync(transit);
 
-            return NoContent();
+            return CreatedAtRoute("Get", new { id = transit.Id }, transit);
         }
 
         private async Task SetTransitDistance(Transit transit)
         {
-            // TODO: test and try catch
+            // TODO: test and try catch, move to service
             var distance = await _mapService.GetDistanceAsync(transit.SourceAddress, transit.DestinationAddress);
             transit.SetDistance(distance);
         }
